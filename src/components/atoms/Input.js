@@ -18,6 +18,12 @@ export const Input = ({
       error={Boolean(error)}
       value={value}
       helperText={error}
+      sx={{
+        marginTop:2,
+         "& fieldset":{
+          borderRadius: '20px'
+         }
+      }}
     />
   )
 }
