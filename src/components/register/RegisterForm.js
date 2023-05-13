@@ -15,7 +15,10 @@ export const RegisterForm = () => {
       const lastName = registerFormValues.lastName.value
       const email = registerFormValues.email.value
       const password = registerFormValues.password.value
-      authenticateUser({formValues:{firstName,lastName,email,password}})
+      authenticateUser({
+        formValues:{firstName,lastName,email,password}, 
+        isLogin: false
+      })
     }
   return (
     //add loading wrapper

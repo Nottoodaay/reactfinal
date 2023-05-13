@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosInstance } from "../../helpers";
 
-export const authenticateUser = createAsyncThunk("user/authenticateUser", async(values)=>{
+export const authenticateUser = createAsyncThunk("user/authenticateUser",
+ async({formValues, isLogin}, {rejectWithValue})=>{
     try {
-        const route = "/users/register"
-        const {data} = await axiosInstance.post(route, values.formValues)
+        const route = `/users/${isLogin ? 'login' : 'register'}`
+        const {data} = await axiosInstance.post(route, formValues)
         localStorage.setItem("token", data.token)
         localStorage.setItem("refreshToken", data.refreshToken)
         return data
     } catch (error) {
-        
+        return rejectWithValue("something went wrong")
     }
 })
 
@@ -29,8 +30,10 @@ const userSlice = createSlice({
             state.userData = action.payload.user
             state.error = null
         })
-
-        //TODO error case
+        builder.addCase(authenticateUser.rejected, (state, action)=>{
+            state.loading = false
+            state.error = action.payload
+        })
     }
 })
 
