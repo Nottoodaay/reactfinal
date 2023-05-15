@@ -7,23 +7,23 @@ export const Input = ({
     label,
     onChange,
     error,
-    value
+    value,
 }) => {
-  return (
-    <TextField
-      type={type}
-      name={name}
-      label={label}
-      onChange={onChange}
-      error={Boolean(error)}
-      value={value}
-      helperText={error}
-      sx={{
-        marginTop:2,
-         "& fieldset":{
-          borderRadius: '20px'
-         }
-      }}
-    />
-  )
+    return (
+        <TextField
+            type={type}
+            name={name}
+            label={label}
+            onChange={onChange}
+            error={Boolean(error)}
+            value={value}
+            helperText={error}
+            sx={{
+                marginTop: 2,
+                '& fieldset': {
+                    borderRadius: '20px',
+                },
+            }}
+        />
+    )
 }

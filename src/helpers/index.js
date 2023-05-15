@@ -1,2 +1,3 @@
-export  { axiosInstance } from "./instance";
-export * from "./utils"
+export { axiosInstance } from "./instance";
+export { ProtectedRoute } from "./ProtectedRoute";
+export * from "./utils";
