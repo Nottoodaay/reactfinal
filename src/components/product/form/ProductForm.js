@@ -1,11 +1,28 @@
-import React from "react";
-import { FormContainer, Input } from "../../atoms";
-import { useForm } from "../../../hooks"
+import React, { useState } from "react";
+import { Button, FormContainer, Input } from "../../atoms";
+import { useForm } from "../../../hooks";
 import { generateProductFormValues } from "./generateProductFormValues";
+import FileBase from "react-file-base64";
+import { useProduct } from "../../../hooks";
 
 export const ProductForm = () => {
   const { formValues: productFormValues, onInputChange: onProductFormChange } =
-    useForm({defaultFormValues: generateProductFormValues() });
+    useForm({ defaultFormValues: generateProductFormValues() });
+
+  const [image, setImage] = useState("");
+
+  const { saveProduct } = useProduct();
+
+  const onSave = () => {
+    const name = productFormValues.name.value;
+    const description = productFormValues.description.value;
+    const category = productFormValues.category.value;
+    const brand = productFormValues.brand.value;
+    const price = productFormValues.price.value;
+
+    saveProduct({ name, description, category, brand, price, image });
+  };
+
   return (
     <FormContainer>
       <Input
@@ -43,6 +60,16 @@ export const ProductForm = () => {
         error={productFormValues.price.error}
         label="price"
       />
+
+      <FileBase
+        type="file"
+        multiple={false}
+        onDone={({ base64 }) => {
+          setImage(base64);
+        }}
+      />
+
+      <Button onClick={onSave}>save product</Button>
     </FormContainer>
   );
 };

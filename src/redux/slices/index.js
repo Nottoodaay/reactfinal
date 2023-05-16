@@ -1,1 +1,2 @@
-export {authenticateUser, userReducer, logout} from './userSlice'
+export { authenticateUser, userReducer, logout } from "./userSlice";
+export { productReducer, saveProduct } from "./productSlice";
