@@ -3,4 +3,5 @@ export {
   productReducer,
   saveProduct,
   fetchHomePageProducts,
+  setSelectedProduct,
 } from "./productSlice";

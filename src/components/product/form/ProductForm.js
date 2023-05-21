@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, FormContainer, Input } from "../../atoms";
 import { useForm } from "../../../hooks";
 import { generateProductFormValues } from "./generateProductFormValues";
@@ -6,12 +6,22 @@ import FileBase from "react-file-base64";
 import { useProduct } from "../../../hooks";
 
 export const ProductForm = () => {
-  const { formValues: productFormValues, onInputChange: onProductFormChange } =
-    useForm({ defaultFormValues: generateProductFormValues() });
+  const {
+    formValues: productFormValues,
+    onInputChange: onProductFormChange,
+    setFormValues,
+  } = useForm({ defaultFormValues: generateProductFormValues() });
 
   const [image, setImage] = useState("");
 
-  const { saveProduct } = useProduct();
+  const { saveProduct, selectedProduct } = useProduct();
+
+  useEffect(() => {
+    if (selectedProduct) {
+      setFormValues(generateProductFormValues(selectedProduct));
+      setImage(selectedProduct?.image);
+    }
+  }, [selectedProduct]);
 
   const onSave = () => {
     const name = productFormValues.name.value;
@@ -20,7 +30,12 @@ export const ProductForm = () => {
     const brand = productFormValues.brand.value;
     const price = productFormValues.price.value;
 
-    saveProduct({ name, description, category, brand, price, image });
+    saveProduct({
+      product: { name, description, category, brand, price, image, },
+      isUpdating: !!selectedProduct,
+      id: selectedProduct?._id
+
+    });
   };
 
   return (

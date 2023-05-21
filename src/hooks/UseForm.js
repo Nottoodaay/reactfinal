@@ -26,5 +26,6 @@ export const useForm = ({ defaultFormValues }) => {
     formValues,
     onInputChange,
     clearForm,
+    setFormValues
   };
 };

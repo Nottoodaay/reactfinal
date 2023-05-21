@@ -3,9 +3,12 @@ import { axiosInstance } from "../../helpers";
 
 export const saveProduct = createAsyncThunk(
   "product/saveProduct",
-  async ({ product }, { rejectWithValue }) => {
+  async ({ product, isUpdating, id }, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await axiosInstance.post("/products", { product });
+      const endPoint = isUpdating ? `/products/${id}` : "/products";
+      const method = isUpdating ? "put" : "post";
+      const { data } = await axiosInstance[method](endPoint, { product });
+      dispatch(fetchHomePageProducts());
       return data;
     } catch (error) {
       return rejectWithValue("could not add product");
@@ -32,17 +35,23 @@ const productSlice = createSlice({
     product: null,
     error: null,
     homePageProducts: [],
+    selectedProduct: null,
+  },
+  reducers: {
+    setSelectedProduct: (state, action) => {
+      state.selectedProduct = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchHomePageProducts.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(fetchHomePageProducts.fulfilled, (state, action) => {
-      state.loading = false
+      state.loading = false;
       state.homePageProducts = action.payload.products;
     });
     builder.addCase(fetchHomePageProducts.rejected, (state, action) => {
-      state.loading = false
+      state.loading = false;
       state.error = action.payload;
     });
     builder.addCase(saveProduct.pending, (state) => {
@@ -60,3 +69,5 @@ const productSlice = createSlice({
 });
 
 export const productReducer = productSlice.reducer;
+
+export const { setSelectedProduct } = productSlice.actions;
