@@ -17,6 +17,8 @@ export const useProduct = () => {
 
   const isProductLoading = useSelector((state) => state.product.loading);
 
+  const categories = useSelector((state) => state.product.categories);
+
   const navigate = useNavigate();
 
   const setSelectedProduct = (data) => {
@@ -37,7 +39,7 @@ export const useProduct = () => {
     )
       .unwrap()
       .then(() => {
-        setSelectedProduct(null)
+        setSelectedProduct(null);
         navigate("/");
       });
   };
@@ -49,5 +51,6 @@ export const useProduct = () => {
     isProductLoading,
     setSelectedProduct,
     selectedProduct,
+    categories,
   };
 };

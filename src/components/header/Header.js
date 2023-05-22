@@ -24,17 +24,27 @@ const StyledToolBar = styled(Toolbar)(() => ({
   justifyContent: "space-between",
 }));
 
-export const Header = () => {
+export const Header = ({ setIsDrawerOpen }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { cartItems } = useCart();
   return (
     <Box>
       <StyledAppBar>
         <StyledToolBar>
+          <Button
+            onClick={() => setIsDrawerOpen((prev) => !prev)}
+            sx={{ display: { md: "none" }}}
+          >
+            hi
+          </Button>
           <Link linkTo="/">Home</Link>
           <UserIcon />
           <Button onClick={() => setIsCartOpen(true)}>open Cart</Button>
-          <CartDrawer isCartOpen={isCartOpen} cartItems={cartItems} setIsCartOpen={setIsCartOpen} />
+          <CartDrawer
+            isCartOpen={isCartOpen}
+            cartItems={cartItems}
+            setIsCartOpen={setIsCartOpen}
+          />
         </StyledToolBar>
       </StyledAppBar>
     </Box>

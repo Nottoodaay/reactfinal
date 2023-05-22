@@ -1,10 +1,10 @@
-import { Route } from "react-router";
 import "./App.css";
 import { RoutesComponent } from "./Routes";
 import { Header } from "./components/header/Header";
 import { Box, styled } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCart, useProduct, useUser } from "./hooks";
+import { Sidebar } from "./components/sidebar";
 
 const StyledContentContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
@@ -16,24 +16,26 @@ const StyledContentContainer = styled(Box)(({ theme }) => ({
 }));
 
 function App() {
-  const {getHomePageProducts} = useProduct()
-  const {userData} = useUser()
-  const {fetchCart} = useCart()
+  const { getHomePageProducts } = useProduct();
+  const { userData } = useUser();
+  const { fetchCart } = useCart();
+  const [isDrawerOpen, setIsDrawerOpen] = useState();
 
-  useEffect(()=>{
-    getHomePageProducts()
-  }, [])
+  useEffect(() => {
+    getHomePageProducts();
+  }, []);
 
-  useEffect(()=>{
-    if(userData?._id){
-      fetchCart(userData?._id)
+  useEffect(() => {
+    if (userData?._id) {
+      fetchCart(userData?._id);
     }
-  }, [userData])
+  }, [userData]);
 
   return (
     <Box>
-      <Header />
+      <Header setIsDrawerOpen={setIsDrawerOpen} />
       <StyledContentContainer>
+        <Sidebar isDrawerOpen={isDrawerOpen} setDrawerOpen={setIsDrawerOpen} />
         <RoutesComponent />
       </StyledContentContainer>
     </Box>

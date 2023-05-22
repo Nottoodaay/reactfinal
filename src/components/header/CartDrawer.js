@@ -29,7 +29,7 @@ export const CartDrawer = ({ cartItems, isCartOpen, setIsCartOpen }) => {
         const { product, quantity } = item;
         const { price, name, _id, image } = product;
         return (
-          <StyledCartItem>
+          <StyledCartItem key={_id}>
             <img
               src={image}
               alt={`${name} - img `}
