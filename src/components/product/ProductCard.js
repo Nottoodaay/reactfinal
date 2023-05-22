@@ -44,7 +44,7 @@ export const ProductCard = ({ product }) => {
           <img
             src={image}
             alt={`${category}-${name}`}
-            style={{ objectFit: "cover", width: "100%", height: "200px" }}
+            style={{ objectFit: "fill", width: "100%", height: "200px" }}
           />
           <StyledInfoContainer>
             <Text>{name}</Text>
