@@ -5,3 +5,5 @@ export {
   fetchHomePageProducts,
   setSelectedProduct,
 } from "./productSlice";
+
+export { addToCart, cartReducer, removeFromCart } from "./cart";

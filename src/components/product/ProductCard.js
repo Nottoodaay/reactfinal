@@ -2,7 +2,7 @@ import { Box, Card, CardActions, Grid, styled } from "@mui/material";
 import React from "react";
 import { Button, Link, Text } from "../atoms";
 import { isUserAdmin } from "../../helpers";
-import { useProduct, useUser } from "../../hooks";
+import { useCart, useProduct, useUser } from "../../hooks";
 import { useNavigate } from "react-router";
 
 const StyledCard = styled(Card)(() => ({
@@ -26,13 +26,16 @@ const StyledCardActionsContainer = styled(Box)(() => ({
 export const ProductCard = ({ product }) => {
   const { name, _id, image, price, category } = product;
   const { userData } = useUser();
-  const { setSelectedProduct } = useProduct()
+  const { addToCart, cartItems, removeFromCart } = useCart();
+  const { setSelectedProduct } = useProduct();
   const navigate = useNavigate();
 
   const onEdit = () => {
     navigate(`/products/edit/${name}`);
-    setSelectedProduct(product)
+    setSelectedProduct(product);
   };
+
+  const isProductInCart = cartItems?.find((item)=>item.product._id === _id);
 
   return (
     <Grid item>
@@ -50,6 +53,17 @@ export const ProductCard = ({ product }) => {
         </Link>
         <CardActions>
           <StyledCardActionsContainer>
+            {isProductInCart ? (
+              <>
+                <Button onClick={() => addToCart(product)}>+</Button>
+                <Text>{isProductInCart.quantity}</Text>
+                <Button onClick={() => removeFromCart(_id)}>-</Button>
+              </>
+            ) : (
+              <Button onClick={() => addToCart(product)}>add To Cart</Button>
+            )}
+
+            <Button>Remove From Cart</Button>
             {isUserAdmin(userData) && (
               <Button onClick={onEdit}>edit product</Button>
             )}
