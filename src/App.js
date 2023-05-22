@@ -4,7 +4,7 @@ import { RoutesComponent } from "./Routes";
 import { Header } from "./components/header/Header";
 import { Box, styled } from "@mui/material";
 import { useEffect } from "react";
-import { useProduct } from "./hooks";
+import { useCart, useProduct, useUser } from "./hooks";
 
 const StyledContentContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
@@ -17,10 +17,18 @@ const StyledContentContainer = styled(Box)(({ theme }) => ({
 
 function App() {
   const {getHomePageProducts} = useProduct()
+  const {userData} = useUser()
+  const {fetchCart} = useCart()
 
   useEffect(()=>{
     getHomePageProducts()
   }, [])
+
+  useEffect(()=>{
+    if(userData?._id){
+      fetchCart(userData?._id)
+    }
+  }, [userData])
 
   return (
     <Box>

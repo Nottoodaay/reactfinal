@@ -1,6 +1,7 @@
 import { Box, Drawer, styled } from "@mui/material";
 import React from "react";
-import { Text } from "../atoms";
+import { Button, Text } from "../atoms";
+import { useCart, useUser, } from "../../hooks";
 
 const StyledCartItem = styled(Box)(() => ({
   width: 400,
@@ -10,7 +11,14 @@ const StyledCartItem = styled(Box)(() => ({
   marginBottom: 20,
 }));
 
+const StyledButtonContainer = styled(Box)(({
+    display: "flex",
+    justifyContent: "center"
+}))
+
 export const CartDrawer = ({ cartItems, isCartOpen, setIsCartOpen }) => {
+    const {userData} = useUser()
+    const {saveCart, clearCart} = useCart()
   return (
     <Drawer
       open={isCartOpen}
@@ -38,6 +46,13 @@ export const CartDrawer = ({ cartItems, isCartOpen, setIsCartOpen }) => {
           </StyledCartItem>
         );
       })}
+
+      <StyledButtonContainer>
+        <Button onClick={()=>clearCart(userData._id)}> clear cart </Button>
+        {!!userData && <Button onClick={()=>{
+            saveCart({userId: userData?._id, cartItems})
+        }}>save Cart</Button>}
+      </StyledButtonContainer>
     </Drawer>
   );
 };

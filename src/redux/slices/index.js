@@ -6,4 +6,11 @@ export {
   setSelectedProduct,
 } from "./productSlice";
 
-export { addToCart, cartReducer, removeFromCart } from "./cart";
+export {
+  addToCart,
+  cartReducer,
+  removeFromCart,
+  saveCart,
+  fetchCart,
+  clearCart,
+} from "./cart";

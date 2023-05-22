@@ -2,7 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart as addInCart,
+  clearCart as emptyCart,
   removeFromCart as deleteFromCart,
+  fetchCart as getCart,
+  saveCart as saveCartToBack,
 } from "../redux/slices";
 
 export const useCart = () => {
@@ -18,5 +21,27 @@ export const useCart = () => {
     dispatch(deleteFromCart(id));
   };
 
-  return { addToCart, cartItems, removeFromCart };
+  const fetchCart = (data) => {
+    dispatch(getCart(data));
+  };
+
+  const saveCart = (data) => {
+    dispatch(saveCartToBack(data));
+  };
+
+  const clearCart = (userId) => {
+    dispatch(emptyCart());
+    if(userId){
+      saveCart({userId, cartItems: []})
+    }
+  };
+
+  return {
+    addToCart,
+    cartItems,
+    removeFromCart,
+    fetchCart,
+    saveCart,
+    clearCart,
+  };
 };
