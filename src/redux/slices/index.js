@@ -4,6 +4,7 @@ export {
   saveProduct,
   fetchHomePageProducts,
   setSelectedProduct,
+  fetchCategoryProducts,
 } from "./productSlice";
 
 export {

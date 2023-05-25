@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchCategoryProducts as fetchProductsByCategory,
   fetchHomePageProducts,
   saveProduct as saveProductHanlder,
   setSelectedProduct as selectProduct,
@@ -21,12 +22,20 @@ export const useProduct = () => {
 
   const navigate = useNavigate();
 
+  const categoryProducts = useSelector(
+    (state) => state.product.categoryProducts
+  );
+
   const setSelectedProduct = (data) => {
     dispatch(selectProduct(data));
   };
 
   const getHomePageProducts = () => {
     dispatch(fetchHomePageProducts());
+  };
+
+  const fetchCategoryProducts = (url) => {
+    dispatch(fetchProductsByCategory(url));
   };
 
   const saveProduct = (data) => {
@@ -52,5 +61,7 @@ export const useProduct = () => {
     setSelectedProduct,
     selectedProduct,
     categories,
+    categoryProducts,
+    fetchCategoryProducts,
   };
 };
