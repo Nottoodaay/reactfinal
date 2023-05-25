@@ -4,6 +4,8 @@ import { Link } from "../atoms";
 import { UserIcon } from "./UserIcon";
 import { CartDrawer } from "./CartDrawer";
 import { useCart } from "../../hooks";
+import { AiOutlineShoppingCart, AiOutlineHome } from "react-icons/ai";
+import { BsLayoutSidebarInset } from "react-icons/bs";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   background: "red",
@@ -33,13 +35,17 @@ export const Header = ({ setIsDrawerOpen }) => {
         <StyledToolBar>
           <Button
             onClick={() => setIsDrawerOpen((prev) => !prev)}
-            sx={{ display: { md: "none" }}}
+            sx={{ display: { sm: "none" } }}
           >
-            hi
+            <BsLayoutSidebarInset size={30} color="white" />
           </Button>
-          <Link linkTo="/">Home</Link>
+          <Link linkTo="/">
+            <AiOutlineHome size={30} color="black"/>
+          </Link>
           <UserIcon />
-          <Button onClick={() => setIsCartOpen(true)}>open Cart</Button>
+          <Button onClick={() => setIsCartOpen(true)}>
+            <AiOutlineShoppingCart size={30} color="white" />
+          </Button>
           <CartDrawer
             isCartOpen={isCartOpen}
             cartItems={cartItems}
