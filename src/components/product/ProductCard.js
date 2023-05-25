@@ -40,7 +40,7 @@ export const ProductCard = ({ product }) => {
   return (
     <Grid item>
       <StyledCard>
-        <Link>
+        <Link linkTo={`products/categories/${category}/${_id}`}>
           <img
             src={image}
             alt={`${category}-${name}`}

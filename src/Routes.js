@@ -6,6 +6,7 @@ import {
   LoginPage,
   ProductFormPage,
   CategoryProductsPage,
+  SingleProductPage,
 } from "./pages";
 import { ProtectedRoute, isUserAdmin } from "./helpers";
 import { useUser } from "./hooks";
@@ -37,6 +38,11 @@ export const RoutesComponent = () => {
       <Route
         path="/products/categories/:categoryName"
         element={<CategoryProductsPage />}
+      />
+
+      <Route
+        path="/products/categories/:categoryName/:id"
+        element={<SingleProductPage />}
       />
     </Routes>
   );

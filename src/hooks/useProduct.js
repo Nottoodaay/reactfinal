@@ -4,6 +4,7 @@ import {
   fetchHomePageProducts,
   saveProduct as saveProductHanlder,
   setSelectedProduct as selectProduct,
+  fetchSingleProduct,
 } from "../redux/slices";
 import { useNavigate } from "react-router";
 
@@ -19,6 +20,8 @@ export const useProduct = () => {
   const isProductLoading = useSelector((state) => state.product.loading);
 
   const categories = useSelector((state) => state.product.categories);
+
+  const singleProduct = useSelector((state) => state.product.singleProduct);
 
   const navigate = useNavigate();
 
@@ -38,6 +41,10 @@ export const useProduct = () => {
     dispatch(fetchProductsByCategory(url));
   };
 
+  const getSingleProduct = (data) => {
+    dispatch(fetchSingleProduct(data));
+  };
+
   const saveProduct = (data) => {
     dispatch(
       saveProductHanlder({
@@ -54,14 +61,17 @@ export const useProduct = () => {
   };
 
   return {
-    saveProduct,
     homePageProducts,
-    getHomePageProducts,
     isProductLoading,
-    setSelectedProduct,
     selectedProduct,
     categories,
     categoryProducts,
+    singleProduct,
+
+    saveProduct,
+    getHomePageProducts,
+    setSelectedProduct,
     fetchCategoryProducts,
+    getSingleProduct,
   };
 };
