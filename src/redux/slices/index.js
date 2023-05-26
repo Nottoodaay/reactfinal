@@ -5,7 +5,8 @@ export {
   fetchHomePageProducts,
   setSelectedProduct,
   fetchCategoryProducts,
-  fetchSingleProduct
+  fetchSingleProduct,
+  rateProduct
 } from "./productSlice";
 
 export {

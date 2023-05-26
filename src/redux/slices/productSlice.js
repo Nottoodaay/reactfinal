@@ -55,6 +55,27 @@ export const fetchSingleProduct = createAsyncThunk(
   }
 );
 
+export const rateProduct = createAsyncThunk(
+  "product/rateProduct",
+  async ({ productId, userId, rating, isHome, url }, { rejectWithValue, dispatch }) => {
+    try {
+      await axiosInstance.post(
+        `/products/${productId}/users/${userId}/rate`,
+        {
+          rating
+        }
+      );
+      if(isHome){
+        dispatch(fetchHomePageProducts())
+      }else{
+        dispatch(fetchCategoryProducts(url))
+      }
+    } catch (error) {
+      return rejectWithValue("could not rate product")
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -67,6 +88,7 @@ const productSlice = createSlice({
     categoryProducts: {
       products: [],
     },
+    singleProduct: null,
   },
   reducers: {
     setSelectedProduct: (state, action) => {

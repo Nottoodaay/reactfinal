@@ -5,6 +5,7 @@ import {
   saveProduct as saveProductHanlder,
   setSelectedProduct as selectProduct,
   fetchSingleProduct,
+  rateProduct,
 } from "../redux/slices";
 import { useNavigate } from "react-router";
 
@@ -60,6 +61,10 @@ export const useProduct = () => {
       });
   };
 
+  const rateProducts = (data) => {
+    dispatch(rateProduct(data));
+  };
+
   return {
     homePageProducts,
     isProductLoading,
@@ -73,5 +78,6 @@ export const useProduct = () => {
     setSelectedProduct,
     fetchCategoryProducts,
     getSingleProduct,
+    rateProducts,
   };
 };
