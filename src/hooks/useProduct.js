@@ -6,6 +6,8 @@ import {
   setSelectedProduct as selectProduct,
   fetchSingleProduct,
   rateProduct,
+  queryProducts,
+  clearSearchResults,
 } from "../redux/slices";
 import { useNavigate } from "react-router";
 
@@ -23,6 +25,8 @@ export const useProduct = () => {
   const categories = useSelector((state) => state.product.categories);
 
   const singleProduct = useSelector((state) => state.product.singleProduct);
+
+  const searchResults = useSelector((state) => state.product.searchResults);
 
   const navigate = useNavigate();
 
@@ -65,6 +69,14 @@ export const useProduct = () => {
     dispatch(rateProduct(data));
   };
 
+  const searchProducts = (data) => {
+    dispatch(queryProducts(data));
+  };
+
+  const clearSearchResult = () => {
+    dispatch(clearSearchResults());
+  };
+
   return {
     homePageProducts,
     isProductLoading,
@@ -72,6 +84,7 @@ export const useProduct = () => {
     categories,
     categoryProducts,
     singleProduct,
+    searchResults,
 
     saveProduct,
     getHomePageProducts,
@@ -79,5 +92,7 @@ export const useProduct = () => {
     fetchCategoryProducts,
     getSingleProduct,
     rateProducts,
+    searchProducts,
+    clearSearchResult,
   };
 };

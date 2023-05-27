@@ -6,6 +6,7 @@ import { CartDrawer } from "./CartDrawer";
 import { useCart } from "../../hooks";
 import { AiOutlineShoppingCart, AiOutlineHome } from "react-icons/ai";
 import { BsLayoutSidebarInset } from "react-icons/bs";
+import { SearchBar } from "./SearchBar";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   background: "red",
@@ -42,6 +43,9 @@ export const Header = ({ setIsDrawerOpen }) => {
           <Link linkTo="/">
             <AiOutlineHome size={30} color="black"/>
           </Link>
+
+          <SearchBar />
+
           <UserIcon />
           <Button onClick={() => setIsCartOpen(true)}>
             <AiOutlineShoppingCart size={30} color="white" />

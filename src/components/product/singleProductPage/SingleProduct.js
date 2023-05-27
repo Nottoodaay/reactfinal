@@ -12,7 +12,7 @@ export const SingleProduct = () => {
     getSingleProduct({category: categoryName, id})
   }, []);
 
-  return <LoadingWrapper isLoading={isProductLoading}>
+  return <LoadingWrapper isLoading={isProductLoading || !singleProduct}>
     <SingleProductCard product={singleProduct} />
   </LoadingWrapper>;
 };

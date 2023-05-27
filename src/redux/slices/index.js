@@ -6,7 +6,9 @@ export {
   setSelectedProduct,
   fetchCategoryProducts,
   fetchSingleProduct,
-  rateProduct
+  queryProducts,
+  clearSearchResults,
+  rateProduct,
 } from "./productSlice";
 
 export {
